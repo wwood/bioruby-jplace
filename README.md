@@ -15,7 +15,7 @@ gem install bio-jplace
 An example jplace format file, from https://en.wikipedia.org/wiki/Stockholm_format
 ```json
 {
- "tree": "((A:0.2{0},B:0.09{1}):0.7{2},C:0.5{3}){​4};",
+ "tree": "((A:0.2{0},B:0.09{1}):0.7{2},C:0.5{3}){4};",
  "placements":
  [
   {"p":
@@ -44,7 +44,8 @@ require 'bio-jplace'
 jplace = Bio::Jplace.parse('spec/data/example.jplace') #=> Bio::Jplace object
 
 jplace.version #=> 3 (Integer)
-jplace.tree #=> Bio::Jplace::Tree object, containing the tree "((A:0.2{0},B:0.09{1}):0.7{2},C:0.5{3}){​4};"
+jplace.tree #=> Bio::Jplace::Tree object, containing the tree "((A:0.2{0},B:0.09{1}):0.7{2},C:0.5{3}){4};"
+jplace.newick_tree #=> "((A:0.2,B:0.09):0.7,C:0.5);"
 
 jplace.each_placement do |placement|
   placement.names #=> Array of Bio::Jplace::Name objects, which may contain multiplicity information
