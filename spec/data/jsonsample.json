@@ -1,0 +1,28 @@
+{
+"tree": "((A:0.2{0},B:0.09{1}):0.7{2},C:0.5{3}){4};",
+"placements":
+[
+{"p":
+[[0, 22578.16, 0.777385, 0.004132, 0.0006],
+[1, 22580.15, 0.107065, 0.000009, 0.0153]
+],
+"n": ["fragment1", "fragment2"]
+},
+{"p": [[2, 22576.46, 1.0, 0.003555, 0.000006]],
+"nm": [["fragment3", 1.5], ["fragment4", 2]]},
+{"p": [[5, 22576.46, 1.0, 0.003555, 0.000006]],
+"nm": [["fragment7", 4.676]]},
+{"p": [[3, 22578.16, 0.777385, 0.004132, 0.0006],
+[4, 22580.15, 0.107065, 0.000009, 0.0153]
+],
+"nm": [["fragment5", 8], ["fragment6", 6]]}
+],
+"metadata":
+{"invocation":
+"pplacer -c tiny.refpkg frags.fasta"
+},
+"version": 3,
+"fields":
+["edge_num", "likelihood", "like_weight_ratio",
+"distal_length", "pendant_length"]
+}
