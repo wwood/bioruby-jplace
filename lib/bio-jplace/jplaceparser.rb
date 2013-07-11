@@ -1,13 +1,8 @@
-#!/usr/bin/env ruby
-
-require 'pp'
-require 'rubygems'
 require 'json'
 
 class Jplace
   def initialize(data)
     @json = data
-    placementCollection
   end
 
   def tree
@@ -26,7 +21,45 @@ class Jplace
     @json['fields']
   end
 
-  def placementCollection
+  # Return an array of values for a given placement key (name),
+  # one value for each placement
+  def field_value(name, field)
+    placement_collection[name].collect{|entry| entry[field]}
+  end
+
+  def multiplicity(name)
+    mult={}
+    @json['placements'].each do |placement|
+      if placement['nm']
+        placement['nm'].each do |nmname|
+          pstring = placement['p']
+          write = []
+          pstring.each do |position|
+            identifier = nmname[0]
+            multiplicity = nmname[1]
+            mult[identifier]=multiplicity
+          end
+        end
+      end
+    end
+    toReturn=mult[name]
+    toReturn=toReturn.to_f if mult[name]
+
+    return toReturn
+  end
+
+  def get_placement(name)
+    placement_collection[name]
+  end
+
+  def each_placement_set
+    placement_collection.each do |key, val|
+      yield key, val, multiplicity(key)
+    end
+  end
+
+  private
+  def placement_collection
     npos=[]
     nmpos=[]
     nhash={}
@@ -71,48 +104,11 @@ class Jplace
           end
         end
       else
-        raise "Bad dataset, please check your .jsonfile, expect n or nm for each p"
+        raise "Error while parsing jplace file, expected n or nm for each p. Current p is #{p.inspect}"
       end
     end
     nphash = nmhash.merge(nhash)
-    @placementCollection = nphash
     return nphash
   end
-  def fieldvalue(name, field)
-  placementCollection[name].collect{|entry| entry[field]}
-  end
-
-  def multiplicity(name)
-    mult={}
-    @json['placements'].each do |placement|
-      if placement['nm']
-        placement['nm'].each do |nmname|
-          pstring = placement['p']
-          write = []
-          pstring.each do |position|
-            identifier = nmname[0]
-            multiplicity = nmname[1]
-            mult[identifier]=multiplicity
-          end
-        end
-      end
-    end
-    toReturn=mult[name]
-    toReturn=toReturn.to_f if mult[name]
-    @multiplicity = mult
-
-    return toReturn
-  end
-
-  def getplacement(name)
-    placementCollection[name]
-  end
-
-  def each_placement_set
-    placementCollection.each do |key, val|
-      yield key, val, multiplicity(key)
-    end
-  end
 end
-#######################################################
 
