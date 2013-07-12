@@ -41,7 +41,7 @@ An example jplace format file, from https://en.wikipedia.org/wiki/Stockholm_form
 ```ruby
 require 'bio-jplace'
 
-jplace = Bio::Jplace.parse('spec/data/example.jplace') #=> Bio::Jplace object
+jplace = Bio::Jplace.parse_file('spec/data/example.jplace') #=> Bio::Jplace object
 
 jplace.version #=> 3 (Integer)
 jplace.tree #=> Bio::Jplace::Tree object, containing the tree "((A:0.2{0},B:0.09{1}):0.7{2},C:0.5{3}){4};"
@@ -54,7 +54,7 @@ jplace.each_placement_set do |name, placement_set, multiplicity|
   placement_set #=> Bio::Jplace::PlacementSet object, which contains none or more Bio::Jplace::Placement objects
   placement_set[0]['edge_num'] #=> "1"
 
-  multiplicity #=> nil (would be 1.5 for fragment3, for instance)
+  multiplicity #=> nil (but would be 1.5 for fragment3, for instance)
 end
 
 jplace.fields #=> ["edge_num", "likelihood", "like_weight_ratio", "distal_length", "pendant_length"]
@@ -62,7 +62,7 @@ jplace.fields #=> ["edge_num", "likelihood", "like_weight_ratio", "distal_length
 
 The API doc is online. For more code examples see the test files in
 the source tree.
-        
+
 ## Project home page
 
 Information on the source tree, documentation, examples, issues and
@@ -75,7 +75,7 @@ The BioRuby community is on IRC server: irc.freenode.org, channel: #bioruby.
 ## Cite
 
 If you use this software, please cite one of
-  
+
 * [BioRuby: bioinformatics software for the Ruby programming language](http://dx.doi.org/10.1093/bioinformatics/btq475)
 * [Biogem: an effective tool-based approach for scaling up open source software development in bioinformatics](http://dx.doi.org/10.1093/bioinformatics/bts080)
 
